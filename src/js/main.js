@@ -11,8 +11,14 @@
   // add canvas elm to page
   document.body.appendChild( renderer.domElement );
 
-  var geometry = new THREE.BoxGeometry( 1, 1, 1 ); // create cube geometry
-  var material = new THREE.MeshBasicMaterial( { color: 0xee4f7e } ); // set the material (green)
+  var geometry = new THREE.IcosahedronGeometry( 1, 1 ); // create cube geometry
+  var material = new THREE.MeshBasicMaterial({
+    color: 0xee4f7e,
+    wireframe: true,
+    wireframeLinewidth: 2,
+    transparent: true,
+    vertexColors: THREE.VertexColors
+  }); // set the material (green)
   var cube = new THREE.Mesh( geometry, material ); // combine into a mesh
 
   // add the cube
