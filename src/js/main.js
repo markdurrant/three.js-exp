@@ -25,7 +25,7 @@
     new THREE.Vector3( 1, 1, Math.random() )
   );
 
-  gridGeo.faces.push( // creat faces from vertices for gridGeo
+  gridGeo.faces.push( // create faces from vertices for grid
     new THREE.Face3( 0, 3, 4 ),
     new THREE.Face3( 0, 1, 4 ),
     new THREE.Face3( 1, 4, 5 ),
@@ -36,6 +36,27 @@
     new THREE.Face3( 4, 7, 8 ),
     new THREE.Face3( 4, 5, 8 )
   );
+
+  var floorGeo = new THREE.Geometry(); // create empty geometry
+
+  floorGeo.vertices.push( // add vertices to floorGeo
+    new THREE.Vector3( -3, -3, 0 ),
+    new THREE.Vector3( 3, -3, 0 ),
+    new THREE.Vector3( -3, 3, 0 ),
+    new THREE.Vector3( 3, 3, 0 )
+  );
+
+  floorGeo.faces.push( // create faces form verticies for floor
+    new THREE.Face3( 0, 2, 3 ),
+    new THREE.Face3( 0, 1, 3 )
+  );
+
+  var flat = new THREE.MeshBasicMaterial({
+    color: 0x222222,
+    side: THREE.DoubleSide
+  });
+
+  var floor =  new THREE.Mesh( floorGeo, flat );
 
   var wireframe = new THREE.MeshBasicMaterial({
     color: 0xffffff,
@@ -48,16 +69,17 @@
   var grid = new THREE.Mesh( gridGeo, wireframe ); // combine into a mesh
 
   // add the grid
-  scene.add( grid );
+  scene.add( grid, floor );
 
   // move the camera up
   camera.position.z = 5;
+  camera.rotation.x = 0.5;
 
   // render the scene
   function render() {
     requestAnimationFrame( render );
-    // grid.rotation.x += 0.02;
-    // grid.rotation.y += 0.02;
+    // scene.rotation.x += 0.02;
+    // scene.rotation.y += 0.02;
     renderer.render( scene, camera );
   }
   render();
