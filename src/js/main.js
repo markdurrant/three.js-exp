@@ -40,10 +40,10 @@
   var floorGeo = new THREE.Geometry(); // create empty geometry
 
   floorGeo.vertices.push( // add vertices to floorGeo
-    new THREE.Vector3( -3, -3, 0 ),
-    new THREE.Vector3( 3, -3, 0 ),
-    new THREE.Vector3( -3, 3, 0 ),
-    new THREE.Vector3( 3, 3, 0 )
+    new THREE.Vector3( -6, -6, 0 ),
+    new THREE.Vector3( 6, -6, 0 ),
+    new THREE.Vector3( -6, 6, 0 ),
+    new THREE.Vector3( 6, 6, 0 )
   );
 
   floorGeo.faces.push( // create faces form verticies for floor
@@ -83,5 +83,7 @@
     renderer.render( scene, camera );
   }
   render();
+
+  new THREE.OrbitControls( camera, renderer.domElement );
 
 }()); // end 'use strict'
