@@ -11,9 +11,9 @@
   // add canvas elm to page
   document.body.appendChild( renderer.domElement );
 
-  var geometry = new THREE.Geometry(); // create empty geometry
+  var gridGeo = new THREE.Geometry(); // create empty geometry
 
-  geometry.vertices.push(
+  gridGeo.vertices.push( // add vertices to gridGeo
     new THREE.Vector3( -1, -1, Math.random() ),
     new THREE.Vector3( 0, -1, Math.random() ),
     new THREE.Vector3( 1, -1, Math.random() ),
@@ -25,7 +25,7 @@
     new THREE.Vector3( 1, 1, Math.random() )
   );
 
-  geometry.faces.push(
+  gridGeo.faces.push( // creat faces from vertices for gridGeo
     new THREE.Face3( 0, 3, 4 ),
     new THREE.Face3( 0, 1, 4 ),
     new THREE.Face3( 1, 4, 5 ),
@@ -37,20 +37,18 @@
     new THREE.Face3( 4, 5, 8 )
   );
 
-  geometry.computeBoundingSphere();
-
-  var material = new THREE.MeshBasicMaterial({
+  var wireframe = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     wireframe: true,
     wireframeLinewidth: 2,
     transparent: true,
     vertexColors: THREE.VertexColors
-  }); // set the material (green)
+  }); // set the wireframe material
 
-  var cube = new THREE.Mesh( geometry, material ); // combine into a mesh
+  var grid = new THREE.Mesh( gridGeo, wireframe ); // combine into a mesh
 
-  // add the cube
-  scene.add( cube );
+  // add the grid
+  scene.add( grid );
 
   // move the camera up
   camera.position.z = 5;
@@ -58,8 +56,8 @@
   // render the scene
   function render() {
     requestAnimationFrame( render );
-    // cube.rotation.x += 0.02;
-    // cube.rotation.y += 0.02;
+    // grid.rotation.x += 0.02;
+    // grid.rotation.y += 0.02;
     renderer.render( scene, camera );
   }
   render();
