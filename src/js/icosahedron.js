@@ -13,7 +13,7 @@
 
   var geometry = new THREE.IcosahedronGeometry( 1, 1 ); // create cube geometry
   var material = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
+    color: 0xff0099,
     wireframe: true,
     wireframeLinewidth: 1,
     transparent: true,
