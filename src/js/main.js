@@ -5,7 +5,7 @@
 
   // set up the camera
   var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-      camera.position.z = 8;
+      camera.position.z = 10;
 
   // set up renderer
   var renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -65,6 +65,8 @@
         wireframeLinewidth: 2,
       });
       grid.mesh = new THREE.Mesh( grid.geometry, grid.material );
+      grid.mesh.position.x -= gridData[ 0 ].length / 2;
+      grid.mesh.position.y -= gridData.length / 2;
       scene.add( grid.mesh );
 
 }()); // end 'use strict'
