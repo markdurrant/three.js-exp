@@ -5,7 +5,7 @@
 
   // set up the camera
   var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-      camera.position.z = 6;
+      camera.position.z = 12;
 
   // set up renderer
   var renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -20,10 +20,13 @@
   // enable mouse/touch view controls
   new THREE.OrbitControls( camera, renderer.domElement );
 
-  var flat = new THREE.MeshBasicMaterial({
-    color: 0x222222,
-    side: THREE.DoubleSide
-  });
+  var background = {};
+      background.geometry = new THREE.SphereGeometry( 50, 16, 16 );
+      background.material = new THREE.MeshBasicMaterial({
+        color: 0xff3333,
+        side: THREE.DoubleSide
+      });
+      background.mesh = new THREE.Mesh( background.geometry, background.material );
 
   var wireframe = new THREE.MeshBasicMaterial({
     color: 0xffffff,
@@ -59,25 +62,10 @@
     new THREE.Face3( 4, 5, 8 )
   );
 
-  var floorGeo = new THREE.Geometry(); // create empty geometry
-
-  floorGeo.vertices.push( // add vertices to floorGeo
-    new THREE.Vector3( -6, -6, 0 ),
-    new THREE.Vector3( 6, -6, 0 ),
-    new THREE.Vector3( -6, 6, 0 ),
-    new THREE.Vector3( 6, 6, 0 )
-  );
-
-  floorGeo.faces.push( // create faces form verticies for floor
-    new THREE.Face3( 0, 2, 3 ),
-    new THREE.Face3( 0, 1, 3 )
-  );
-
   // combine geometries / materials into meshes
   var grid = new THREE.Mesh( gridGeo, wireframe );
-  var floor =  new THREE.Mesh( floorGeo, flat );
 
   // add objects to scene
-  scene.add( grid, floor );
+  scene.add( grid, background.mesh );
 
 }()); // end 'use strict'
