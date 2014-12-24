@@ -2,14 +2,36 @@
 
   // set up three.js, define camera, & set renderer to WebGL
   var scene = new THREE.Scene();
+
+  // set up the camera
   var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-  var renderer = new THREE.WebGLRenderer( { antialias:true } );
+      camera.position.z = 6;
 
-  // set renderer size
-  renderer.setSize( window.innerWidth, window.innerHeight );
+  // set up renderer
+  var renderer = new THREE.WebGLRenderer( { antialias: true } );
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      document.body.appendChild( renderer.domElement );
+      // render the scene
+      ( function render() {
+        requestAnimationFrame( render );
+        renderer.render( scene, camera );
+      } )();
 
-  // add canvas elm to page
-  document.body.appendChild( renderer.domElement );
+  // enable mouse/touch view controls
+  new THREE.OrbitControls( camera, renderer.domElement );
+
+  var flat = new THREE.MeshBasicMaterial({
+    color: 0x222222,
+    side: THREE.DoubleSide
+  });
+
+  var wireframe = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    wireframe: true,
+    wireframeLinewidth: 2,
+    transparent: true,
+    vertexColors: THREE.VertexColors
+  });
 
   var gridGeo = new THREE.Geometry(); // create empty geometry
 
@@ -51,39 +73,11 @@
     new THREE.Face3( 0, 1, 3 )
   );
 
-  var flat = new THREE.MeshBasicMaterial({
-    color: 0x222222,
-    side: THREE.DoubleSide
-  });
-
+  // combine geometries / materials into meshes
+  var grid = new THREE.Mesh( gridGeo, wireframe );
   var floor =  new THREE.Mesh( floorGeo, flat );
 
-  var wireframe = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    wireframe: true,
-    wireframeLinewidth: 2,
-    transparent: true,
-    vertexColors: THREE.VertexColors
-  }); // set the wireframe material
-
-  var grid = new THREE.Mesh( gridGeo, wireframe ); // combine into a mesh
-
-  // add the grid
+  // add objects to scene
   scene.add( grid, floor );
-
-  // move the camera up
-  camera.position.z = 5;
-  camera.rotation.x = 0.5;
-
-  // render the scene
-  function render() {
-    requestAnimationFrame( render );
-    // scene.rotation.x += 0.02;
-    // scene.rotation.y += 0.02;
-    renderer.render( scene, camera );
-  }
-  render();
-
-  new THREE.OrbitControls( camera, renderer.domElement );
 
 }()); // end 'use strict'
