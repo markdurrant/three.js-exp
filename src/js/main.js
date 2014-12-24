@@ -30,44 +30,37 @@
       background.mesh = new THREE.Mesh( background.geometry, background.material );
       scene.add( background.mesh );
 
-  var wireframe = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    wireframe: true,
-    wireframeLinewidth: 2,
-    transparent: true,
-    vertexColors: THREE.VertexColors
-  });
+  // set up the grid
+  var grid = {};
+      grid.geometry = new THREE.Geometry();
+      grid.geometry.vertices = [
+        new THREE.Vector3( -1, -1, 0 ),
+        new THREE.Vector3( 0, -1, 0 ),
+        new THREE.Vector3( 1, -1, 0 ),
+        new THREE.Vector3( -1, 0, 0 ),
+        new THREE.Vector3( 0, 0, 0 ),
+        new THREE.Vector3( 1, 0, 0 ),
+        new THREE.Vector3( -1, 1, 0 ),
+        new THREE.Vector3( 0, 1, 0 ),
+        new THREE.Vector3( 1, 1, 0 )
+      ];
+      grid.geometry.faces = [
+        new THREE.Face3( 0, 3, 4 ),
+        new THREE.Face3( 0, 1, 4 ),
+        new THREE.Face3( 1, 4, 5 ),
+        new THREE.Face3( 1, 2, 5 ),
 
-  var gridGeo = new THREE.Geometry(); // create empty geometry
-
-  gridGeo.vertices.push( // add vertices to gridGeo
-    new THREE.Vector3( -1, -1, 0 ),
-    new THREE.Vector3( 0, -1, 0 ),
-    new THREE.Vector3( 1, -1, 0 ),
-    new THREE.Vector3( -1, 0, 0 ),
-    new THREE.Vector3( 0, 0, 0 ),
-    new THREE.Vector3( 1, 0, 0 ),
-    new THREE.Vector3( -1, 1, 0 ),
-    new THREE.Vector3( 0, 1, 0 ),
-    new THREE.Vector3( 1, 1, 0 )
-  );
-
-  gridGeo.faces.push( // create faces from vertices for grid
-    new THREE.Face3( 0, 3, 4 ),
-    new THREE.Face3( 0, 1, 4 ),
-    new THREE.Face3( 1, 4, 5 ),
-    new THREE.Face3( 1, 2, 5 ),
-
-    new THREE.Face3( 3, 6, 7 ),
-    new THREE.Face3( 3, 4, 7 ),
-    new THREE.Face3( 4, 7, 8 ),
-    new THREE.Face3( 4, 5, 8 )
-  );
-
-  // combine geometries / materials into meshes
-  var grid = new THREE.Mesh( gridGeo, wireframe );
-
-  // add objects to scene
-  scene.add( grid );
+        new THREE.Face3( 3, 6, 7 ),
+        new THREE.Face3( 3, 4, 7 ),
+        new THREE.Face3( 4, 7, 8 ),
+        new THREE.Face3( 4, 5, 8 )
+      ];
+      grid.material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        wireframe: true,
+        wireframeLinewidth: 2,
+      });
+      grid.mesh = new THREE.Mesh( grid.geometry, grid.material );
+      scene.add( grid.mesh );
 
 }()); // end 'use strict'
