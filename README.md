@@ -21,7 +21,7 @@ Run Gulp
 * Add light
 * Use 'real' json (without jQuery)
 * give some options
-* limit camera zoom
+* ~~limit camera zoom~~
 * link up to https://github.com/markdurrant/plotter-mesh
 * refactor building grid from data & make work with non square rectangles
 * general tidy up

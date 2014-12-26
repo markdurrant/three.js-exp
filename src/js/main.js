@@ -5,7 +5,7 @@
 
   // set up the camera
   var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-      camera.position.z = 10;
+      camera.position.z = 12;
 
   // set up renderer
   var renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -18,7 +18,8 @@
       } )();
 
   // enable mouse/touch view controls
-  new THREE.OrbitControls( camera, renderer.domElement );
+  var orbit = new THREE.OrbitControls( camera, renderer.domElement );
+      orbit.maxDistance = 50;
 
   // set up background
   var background = {};
