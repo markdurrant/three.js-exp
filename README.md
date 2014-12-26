@@ -1,6 +1,6 @@
-# Barebones gulp project
+# three.js experiments
 
-Barebones gulp.js project. Gives you local server, liveReload, Sass, & jshint.
+experiment in using three.js to visualize height data grid for cutting with paper plotter.
 
 ### getting started
 
@@ -15,3 +15,13 @@ Install packages
 Run Gulp
 
 `gulp`
+
+### to do
+
+* Add light
+* Use 'real' json (without jQuery)
+* give some options
+* limit camera zoom
+* link up to https://github.com/markdurrant/plotter-mesh
+* refactor building grid from data & make work with non square rectangles
+* general tidy up
