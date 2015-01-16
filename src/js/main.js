@@ -21,20 +21,6 @@
   var orbit = new THREE.OrbitControls( camera, renderer.domElement );
       orbit.maxDistance = 40;
 
-  // set up the light
-  var light = new THREE.PointLight( 0xff3333, 1.5, 100 );
-      light.position.set( 0, 7.347880794884119, -25 );
-      scene.add( light );
-
-  // set up background
-  var background = {};
-      background.geometry = new THREE.SphereGeometry( 50, 16, 16 );
-      background.material = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide });
-      background.mesh = new THREE.Mesh( background.geometry, background.material );
-      scene.add( background.mesh );
-
-      console.log(background);
-
   // set up the grid
   var grid = {};
       grid.sectionSize = 1;
