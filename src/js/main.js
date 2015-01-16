@@ -1,4 +1,4 @@
-// (function () { 'use strict';
+(function () { 'use strict';
 
   // set up three.js, define camera, & set renderer to WebGL
   var scene = new THREE.Scene();
@@ -23,17 +23,25 @@
 
   // set up the grid
   var grid = {};
-      grid.sectionSize = 1;
-      grid.vertices = [];
-      grid.faces = [];
+      grid.material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        wireframe: true,
+        wireframeLinewidth: 2,
+      });
+      grid.geometry = new THREE.Geometry();
+      grid.mesh = new THREE.Mesh( grid.geometry, grid.material );
+
+      // get points from data
       for( var GVR = 0; GVR < gridData.length; GVR++ ) {
         for( var GVC = 0; GVC < gridData[ 0 ].length; GVC++ ){
-          grid.vertices.push( new THREE.Vector3( GVC, GVR, gridData[ GVR ][ GVC ] ) );
+          grid.geometry.vertices.push( new THREE.Vector3( GVC, GVR, gridData[ GVR ][ GVC ] ) );
         }
       }
+
+      // create faces from points
       for( var GFR = 0; GFR < gridData.length - 1 ; GFR++ ) {
         for( var GFC = 0; GFC < gridData.length - 1 ; GFC++ ) {
-          grid.faces.push(
+          grid.geometry.faces.push(
             new THREE.Face3(
               GFC + GFR * gridData[ 0 ].length,
               GFC + GFR * gridData[ 0 ].length + 1,
@@ -47,17 +55,12 @@
           );
         }
       }
-      grid.geometry = new THREE.Geometry();
-      grid.geometry.vertices = grid.vertices;
-      grid.geometry.faces = grid.faces;
-      grid.material = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        wireframe: true,
-        wireframeLinewidth: 2,
-      });
-      grid.mesh = new THREE.Mesh( grid.geometry, grid.material );
+
+      // center grid
       grid.mesh.position.x -= gridData[ 0 ].length / 2;
       grid.mesh.position.y -= gridData.length / 2;
+
+      // add grid to scene
       scene.add( grid.mesh );
 
-// }()); // end 'use strict'
+}()); // end 'use strict'
